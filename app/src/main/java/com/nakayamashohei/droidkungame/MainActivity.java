@@ -106,6 +106,9 @@ public class MainActivity extends ActionBarActivity {
         score = 0;
         scoreText.setText(String.valueOf(score));
 
+        random();
+        question();
+
         //画面サイズの取得
         WindowManager windowManager = getWindowManager();
         Display display = windowManager.getDefaultDisplay();
@@ -204,6 +207,16 @@ public class MainActivity extends ActionBarActivity {
     //Start画面にてStartボタンが押された時の処理
     public void start(View v){
         findViewById(R.id.startLayout).setVisibility(View.GONE);
+        timer();
+    }
+
+    //リスタート時の処理
+    public void restart(View v){
+        findViewById(R.id.finishLayout).setVisibility(View.GONE);
+        score = 0;
+        scoreText.setText(String.valueOf(score));
+        random();
+        question();
         timer();
     }
 
