@@ -18,6 +18,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -43,9 +44,10 @@ public class MainActivity extends ActionBarActivity {
     float baseSaturation;
     float baseValue;
 
-    float hue;
-    float saturation;
-    float value;
+    float[] colorValue = {0.7f, 0.75f, 0.8f, 0.85f, 0.9f, 0.95f};
+
+    boolean isMissTouch;
+    int countTimes;
 
     long time = 15000;
 
@@ -57,6 +59,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        isMissTouch = false;
+        countTimes = 0;
 
         scoreText = (TextView) findViewById(R.id.textView_score);
         timeLabel = (TextView) findViewById(R.id.label_time);
@@ -73,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
         gameOverLabel.setTypeface(typeface);
 
         //ImageViewの関連付け
-        for (int i = 0; i < imageView.length; i++){
+        for (int i = 0; i < imageView.length; i++) {
             String ivId = "imageView" + (i + 1);
             int resID = getResources().getIdentifier(ivId, "id", "com.nakayamashohei.droidkungame");
 
@@ -92,6 +97,19 @@ public class MainActivity extends ActionBarActivity {
                         score++;
                         scoreText.setText(String.valueOf(score));
 
+                        if (isMissTouch){
+                            isMissTouch = false;
+                            Log.d("MainActivity", "isMissTouch");
+                        }
+                        countTimes++;
+
+                        if (countTimes >= 3){
+                            Log.d("MainActivity", "countTimes" + countTimes);
+//                            timeText
+                        }
+                    } else {
+                        isMissTouch = true;
+                        countTimes = 0;
                     }
                 }
             });
@@ -146,7 +164,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     //タイマー
-    public void timer(){
+    public void timer() {
 
         CountDownTimer countDownTimer;
         countDownTimer = new CountDownTimer(time, 10) {
@@ -186,7 +204,7 @@ public class MainActivity extends ActionBarActivity {
         for (int i = 0; i < imageView.length; i++) {
 //            imageView[i].setBackgroundColor(baseColor);
 
-            imageView[i].setBackgroundColor(HSV);
+            imageView[i].setBackgroundColor(baseColor);
             imageView[i].setEnabled(true);
         }
         imageView[rnd].setBackgroundColor(color);
@@ -210,25 +228,31 @@ public class MainActivity extends ActionBarActivity {
 
         baseHue = (float) (Math.random() * 349) + 1;
         baseSaturation = (float) (Math.random() * 0.5f) + 0.5f;
-//        baseValue =
 
-        float[] a = {baseHue, baseSaturation, 0.8f};
-        float[] b = {baseHue, baseSaturation, 1f};
+        if (score <= 5) {
+            baseValue = colorValue[0];
+        } else if (score <= 10) {
+            baseValue = colorValue[1];
+        } else if (score <= 15) {
+            baseValue = colorValue[2];
+        }
 
-        HSV = Color.HSVToColor(a);
-        Log.e("MainActivity", "HSV : " + HSV);
+//        float[] baseHsv = {baseHue, baseSaturation, 0.8f};
+        float[] baseHsv = {baseHue, baseSaturation, baseValue};
+        float[] hsv = {baseHue, baseSaturation, 1f};
 
-        color = Color.HSVToColor(b);
+        baseColor = Color.HSVToColor(baseHsv);
+        color = Color.HSVToColor(hsv);
     }
 
     //Start画面にてStartボタンが押された時の処理
-    public void start(View v){
+    public void start(View v) {
         findViewById(R.id.startLayout).setVisibility(View.GONE);
         timer();
     }
 
     //リスタート時の処理
-    public void restart(View v){
+    public void restart(View v) {
         findViewById(R.id.finishLayout).setVisibility(View.GONE);
         score = 0;
         scoreText.setText(String.valueOf(score));
