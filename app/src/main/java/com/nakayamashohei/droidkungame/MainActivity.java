@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,22 +34,24 @@ public class MainActivity extends ActionBarActivity {
 
 
     int width;
-    int hight;
+    int high;
 
     int color;
     int baseColor;
 
-    int baseRed;
-    int baseGreen;
-    int baseBlue;
+    float baseHue;
+    float baseSaturation;
+    float baseValue;
 
-    int red;
-    int green;
-    int blue;
+    float hue;
+    float saturation;
+    float value;
 
     long time = 15000;
 
     private AnimationSet mTouchAnimation;
+
+    int HSV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,13 +120,13 @@ public class MainActivity extends ActionBarActivity {
 
         //タップ時のアニメーション
         width = size.x / 5;
-        hight = width;
+        high = width;
 
         mTouchAnimation = new AnimationSet(true);
-        ScaleAnimation touchStartAnim = new ScaleAnimation(1.0f, 0.8f, 1.0f, 0.8f, width / 2, hight / 2);
+        ScaleAnimation touchStartAnim = new ScaleAnimation(1.0f, 0.8f, 1.0f, 0.8f, width / 2, high / 2);
         touchStartAnim.setDuration(500);
         mTouchAnimation.addAnimation(touchStartAnim);
-        ScaleAnimation touchEndAnim = new ScaleAnimation(0.8f, 1.0f, 0.8f, 1.0f, width / 2, hight / 2);
+        ScaleAnimation touchEndAnim = new ScaleAnimation(0.8f, 1.0f, 0.8f, 1.0f, width / 2, high / 2);
         touchEndAnim.setDuration(300);
         mTouchAnimation.addAnimation(touchEndAnim);
         mTouchAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -181,7 +184,9 @@ public class MainActivity extends ActionBarActivity {
     public void question() {
         random();
         for (int i = 0; i < imageView.length; i++) {
-            imageView[i].setBackgroundColor(baseColor);
+//            imageView[i].setBackgroundColor(baseColor);
+
+            imageView[i].setBackgroundColor(HSV);
             imageView[i].setEnabled(true);
         }
         imageView[rnd].setBackgroundColor(color);
@@ -191,17 +196,29 @@ public class MainActivity extends ActionBarActivity {
     public void random() {
         rnd = (int) (Math.random() * 25);
 
-        baseRed = (int) (Math.random() * 204) + 50;
-        baseGreen = (int) (Math.random() * 204) + 50;
-        baseBlue = (int) (Math.random() * 204) + 50;
+//        baseHue = (int) (Math.random() * 224) + 20;
+//        baseSaturation = (int) (Math.random() * 224) + 20;
+//        baseValue = (int) (Math.random() * 224) + 20;
 
-        baseColor = Color.rgb(baseRed, baseGreen, baseBlue);
+//        baseColor = Color.rgb(baseHue, baseSaturation, baseValue);
 
-        red = baseRed - 50;
-        green = baseGreen - 50;
-        blue = baseBlue - 50;
+//        hue = baseHue - 20;
+//        saturation = baseSaturation - 20;
+//        value = baseValue - 20;
 
-        color = Color.rgb(red, green, blue);
+//        color = Color.rgb(hue, saturation, value);
+
+        baseHue = (float) (Math.random() * 349) + 1;
+        baseSaturation = (float) (Math.random() * 0.5f) + 0.5f;
+//        baseValue =
+
+        float[] a = {baseHue, baseSaturation, 0.8f};
+        float[] b = {baseHue, baseSaturation, 1f};
+
+        HSV = Color.HSVToColor(a);
+        Log.e("MainActivity", "HSV : " + HSV);
+
+        color = Color.HSVToColor(b);
     }
 
     //Start画面にてStartボタンが押された時の処理
@@ -219,7 +236,6 @@ public class MainActivity extends ActionBarActivity {
         question();
         timer();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
