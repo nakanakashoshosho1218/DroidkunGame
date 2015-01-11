@@ -1,4 +1,4 @@
-package com.nakayamashohei.droidkungame;
+package com.nakanakashoshosho1218.droidkungame;
 
 import android.graphics.Color;
 import android.graphics.Point;
@@ -18,7 +18,6 @@ import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {

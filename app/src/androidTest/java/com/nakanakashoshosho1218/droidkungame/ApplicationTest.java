@@ -1,4 +1,4 @@
-package com.nakayamashohei.droidkungame;
+package com.nakanakashoshosho1218.droidkungame;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
