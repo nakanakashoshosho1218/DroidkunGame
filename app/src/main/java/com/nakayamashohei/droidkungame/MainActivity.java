@@ -49,11 +49,10 @@ public class MainActivity extends ActionBarActivity {
     boolean isMissTouch;
     int countTimes;
 
+    CountDownTimer mCountDownTimer;
     long time = 15000;
 
     private AnimationSet mTouchAnimation;
-
-    int HSV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +104,11 @@ public class MainActivity extends ActionBarActivity {
 
                         if (countTimes >= 3){
                             Log.d("MainActivity", "countTimes" + countTimes);
-                            //ここに時間を追加する処理を書く
+
+                            time = time + 3000;
+                            mCountDownTimer.cancel();
+                            timer();
+                            countTimes = 0;
                         }
                     } else {
                         isMissTouch = true;
@@ -166,8 +169,7 @@ public class MainActivity extends ActionBarActivity {
     //タイマー
     public void timer() {
 
-        CountDownTimer countDownTimer;
-        countDownTimer = new CountDownTimer(time, 10) {
+        mCountDownTimer = new CountDownTimer(time, 10) {
             @Override
             public void onTick(long millisUntilFinished) {
                 StringBuilder builder = new StringBuilder();
@@ -176,6 +178,8 @@ public class MainActivity extends ActionBarActivity {
                 builder.append("'");
                 //milli second
                 builder.append(String.format("%1$02d", (int) ((millisUntilFinished % 1000) / 10)));
+
+                time = millisUntilFinished;
 
                 timeText.setText(builder.toString());
 
@@ -214,18 +218,6 @@ public class MainActivity extends ActionBarActivity {
     public void random() {
         rnd = (int) (Math.random() * 25);
 
-//        baseHue = (int) (Math.random() * 224) + 20;
-//        baseSaturation = (int) (Math.random() * 224) + 20;
-//        baseValue = (int) (Math.random() * 224) + 20;
-
-//        baseColor = Color.rgb(baseHue, baseSaturation, baseValue);
-
-//        hue = baseHue - 20;
-//        saturation = baseSaturation - 20;
-//        value = baseValue - 20;
-
-//        color = Color.rgb(hue, saturation, value);
-
         baseHue = (float) (Math.random() * 349) + 1;
         baseSaturation = (float) (Math.random() * 0.5f) + 0.5f;
 
@@ -237,7 +229,6 @@ public class MainActivity extends ActionBarActivity {
             baseValue = colorValue[2];
         }
 
-//        float[] baseHsv = {baseHue, baseSaturation, 0.8f};
         float[] baseHsv = {baseHue, baseSaturation, baseValue};
         float[] hsv = {baseHue, baseSaturation, 1f};
 
@@ -256,6 +247,7 @@ public class MainActivity extends ActionBarActivity {
         findViewById(R.id.finishLayout).setVisibility(View.GONE);
         score = 0;
         scoreText.setText(String.valueOf(score));
+        time = 15000;
         random();
         question();
         timer();
