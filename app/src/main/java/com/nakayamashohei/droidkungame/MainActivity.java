@@ -105,7 +105,7 @@ public class MainActivity extends ActionBarActivity {
 
                         if (countTimes >= 3){
                             Log.d("MainActivity", "countTimes" + countTimes);
-//                            timeText
+                            //ここに時間を追加する処理を書く
                         }
                     } else {
                         isMissTouch = true;
