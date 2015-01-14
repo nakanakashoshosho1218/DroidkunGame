@@ -43,7 +43,7 @@ public class MainActivity extends ActionBarActivity {
     float baseSaturation;
     float baseValue;
 
-    float[] colorValue = {0.7f, 0.75f, 0.8f, 0.85f, 0.9f, 0.95f};
+    float[] colorValue = {0.7f, 0.75f, 0.8f, 0.85f, 0.9f, 0.95f, 0.98f};
 
     boolean isMissTouch;
     int countTimes;
@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
         //ImageViewの関連付け
         for (int i = 0; i < imageView.length; i++) {
             String ivId = "imageView" + (i + 1);
-            int resID = getResources().getIdentifier(ivId, "id", "com.nakayamashohei.droidkungame");
+            int resID = getResources().getIdentifier(ivId, "id", "com.nakanakashoshosho1218.droidkungame");
 
             imageView[i] = (ImageView) findViewById(resID);
             imageView[i].setImageResource(R.drawable.droid);
@@ -95,13 +95,13 @@ public class MainActivity extends ActionBarActivity {
                         score++;
                         scoreText.setText(String.valueOf(score));
 
-                        if (isMissTouch){
+                        if (isMissTouch) {
                             isMissTouch = false;
                             Log.d("MainActivity", "isMissTouch");
                         }
                         countTimes++;
 
-                        if (countTimes >= 3){
+                        if (countTimes >= 3) {
                             Log.d("MainActivity", "countTimes" + countTimes);
 
                             time = time + 3000;
@@ -186,6 +186,8 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             public void onFinish() {
+                time = 0;
+
                 timeText.setText("00'00");
 
                 //Finish時
@@ -224,8 +226,16 @@ public class MainActivity extends ActionBarActivity {
             baseValue = colorValue[0];
         } else if (score <= 10) {
             baseValue = colorValue[1];
-        } else if (score <= 15) {
+        } else if (score <= 20) {
             baseValue = colorValue[2];
+        } else if (score <= 35) {
+            baseValue = colorValue[3];
+        } else if (score <= 55) {
+            baseValue = colorValue[4];
+        } else if (score <= 80) {
+            baseValue = colorValue[5];
+        } else {
+            baseValue = colorValue[6];
         }
 
         float[] baseHsv = {baseHue, baseSaturation, baseValue};
@@ -235,7 +245,7 @@ public class MainActivity extends ActionBarActivity {
         color = Color.HSVToColor(hsv);
     }
 
-    //Start画面にてStartボタンが押された時の処理
+    //Startボタンが押された時の処理
     public void start(View v) {
         findViewById(R.id.startLayout).setVisibility(View.GONE);
         timer();
