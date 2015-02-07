@@ -13,7 +13,7 @@
 
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#ddd"
@@ -381,7 +381,7 @@
                 android:id="@+id/button_start"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:layout_gravity="center"
+                android:layout_gravity="center|bottom"
                 android:background="@drawable/bg_button"
                 android:onClick="start"
                 android:text="START"
@@ -390,106 +390,113 @@
 
         <LinearLayout
             android:id="@+id/finishLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
                 android:id="@+id/label_gameOver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|bottom"
                 android:text="GAME FINISH"
                 android:textColor="#ffffff"
                 android:textSize="80sp" />
 
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="75dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/textView_FinalScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="SCORE"
                         android:textColor="#ffffff"
-                        android:textSize="60sp" />
+                        android:textSize="100sp" />
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="20dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/droid_white" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:paddingLeft="@dimen/activity_horizontal_margin">
 
-                    <View
-                        android:layout_width="50dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
                     <TextView
                         android:id="@+id/label_bestScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom|right"
+                        android:layout_weight="1"
+                        android:gravity="bottom|right"
                         android:text="BEST"
                         android:textColor="#ffffff"
                         android:textSize="30sp" />
 
                     <TextView
                         android:id="@+id/textView_bestScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right|top"
+                        android:layout_weight="1"
+                        android:gravity="right|top"
+                        android:text="27"
                         android:textColor="#ffffff"
                         android:textSize="40sp" />
 
+
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/button_restart"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_gravity="bottom|center"
-                android:background="@drawable/bg_button"
-                android:onClick="restart"
-                android:text="Try Again"
-                android:textColor="@drawable/bg_button_color" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button_restart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_button"
+                    android:gravity="center"
+                    android:onClick="restart"
+                    android:text="Try Again"
+                    android:textColor="@drawable/bg_button_color" />
+            </LinearLayout>
         </LinearLayout>
 
     </FrameLayout>

@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
     int combo;
 
     CountDownTimer mCountDownTimer;
-    long time = 5000;
+    long time = 3000;
 
     private AnimationSet mImageAnimation;
     private AnimationSet mComboTextAnimation;
