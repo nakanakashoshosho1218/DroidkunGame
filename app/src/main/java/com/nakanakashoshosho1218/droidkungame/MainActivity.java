@@ -1,6 +1,8 @@
 package com.nakanakashoshosho1218.droidkungame;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -8,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -21,6 +24,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
 
 public class MainActivity extends Activity {
     TextView scoreText;
@@ -61,7 +65,7 @@ public class MainActivity extends Activity {
     int combo;
 
     CountDownTimer mCountDownTimer;
-    long time = 3000;
+    long time = 1000;
 
     private AnimationSet mImageAnimation;
     private AnimationSet mComboTextAnimation;
@@ -273,6 +277,25 @@ public class MainActivity extends Activity {
                 findViewById(R.id.translucentLayout).setVisibility(View.VISIBLE);
                 findViewById(R.id.finishLayout).setVisibility(View.VISIBLE);
                 finalScoreText.setText(String.valueOf(score));
+
+                SharedPreferences mHighScorePref = getSharedPreferences("TapDroid", Context.MODE_PRIVATE);
+                int highScore = mHighScorePref.getInt("BEST SCORE", 0);
+                if (highScore < score){
+                    SharedPreferences.Editor editor = mHighScorePref.edit();
+                    editor.putInt("BEST SCORE", score);
+                    editor.commit();
+                    String finishText = "<font color=#e60012>G</font><font color=#f39800>A</font>" +
+                            "<font color=#8fc31f>M</font><font color=#e60012>E</font> <font color=#009944>F</font>" +
+                            "<font color=#009e96>I</font><font color=#00a0e9>N</font><font color=#0068b7>I</font>" +
+                            "<font color=#920783>S</font><font color=#e5004f>H</font>";
+                    gameOverLabel.setText(Html.fromHtml(finishText));
+                    bestScoreText.setText(String.valueOf(score));
+                }else {
+                    String finishText = "GAME FINISH";
+                    gameOverLabel.setText(finishText);
+                    bestScoreText.setText(String.valueOf(highScore));
+                }
+
                 findViewById(R.id.translucentLayout).setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -343,6 +366,16 @@ public class MainActivity extends Activity {
         random();
         question();
         timer();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+    @Override
+    protected void onStop() {
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+        super.onStop();
     }
 
     @Override

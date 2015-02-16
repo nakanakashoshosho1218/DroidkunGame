@@ -465,7 +465,7 @@
                         android:layout_gravity="right|top"
                         android:layout_weight="1"
                         android:gravity="right|top"
-                        android:text="27"
+                        android:text="0"
                         android:textColor="#ffffff"
                         android:textSize="40sp" />
 
