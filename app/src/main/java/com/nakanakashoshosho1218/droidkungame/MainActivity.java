@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class MainActivity extends Activity {
     TextView scoreText;
@@ -65,7 +67,7 @@ public class MainActivity extends Activity {
     int combo;
 
     CountDownTimer mCountDownTimer;
-    long time = 1000;
+    long time = 15000;
 
     private AnimationSet mImageAnimation;
     private AnimationSet mComboTextAnimation;
@@ -370,12 +372,19 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        Tracker t = ((GoogleAnalyticsTracker) getApplication()).getTracker(GoogleAnalyticsTracker.TrackerName.APP_TRACKER);
+        t.setScreenName("MainActivity");
+        t.send(new HitBuilders.AppViewBuilder().build());
         GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
+
     @Override
-    protected void onStop() {
+    protected void onRestart() {
+        super.onStart();
+        Tracker t = ((GoogleAnalyticsTracker) getApplication()).getTracker(GoogleAnalyticsTracker.TrackerName.APP_TRACKER);
+        t.setScreenName("MainActivity");
+        t.send(new HitBuilders.AppViewBuilder().build());
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
-        super.onStop();
     }
 
     @Override
