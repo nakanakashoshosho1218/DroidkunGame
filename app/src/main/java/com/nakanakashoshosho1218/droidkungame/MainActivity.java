@@ -2,12 +2,18 @@ package com.nakanakashoshosho1218.droidkungame;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Bundle;
 import android.text.Html;
@@ -21,6 +27,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +45,8 @@ public class MainActivity extends Activity {
     TextView finalScoreText;
     TextView bestScoreLabel;
     TextView bestScoreText;
+
+    Button shareTwitterButton;
 
     ImageView[] imageView = new ImageView[25];
 
@@ -67,7 +76,7 @@ public class MainActivity extends Activity {
     int combo;
 
     CountDownTimer mCountDownTimer;
-    long time = 15000;
+    long time = 1000;
 
     private AnimationSet mImageAnimation;
     private AnimationSet mComboTextAnimation;
@@ -89,6 +98,8 @@ public class MainActivity extends Activity {
         finalScoreText = (TextView) findViewById(R.id.textView_FinalScore);
         bestScoreLabel = (TextView) findViewById(R.id.label_bestScore);
         bestScoreText = (TextView) findViewById(R.id.textView_bestScore);
+
+        shareTwitterButton = (Button) findViewById(R.id.button_shareTwitter);
 
         //TextViewのフォント(DIN Condensed Bold)
         Typeface typeface = Typeface.createFromAsset(getAssets(), "DIN Condensed Bold.ttf");
@@ -248,6 +259,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        useScaledImage();
     }
 
     //タイマー
@@ -282,7 +294,7 @@ public class MainActivity extends Activity {
 
                 SharedPreferences mHighScorePref = getSharedPreferences("TapDroid", Context.MODE_PRIVATE);
                 int highScore = mHighScorePref.getInt("BEST SCORE", 0);
-                if (highScore < score){
+                if (highScore < score) {
                     SharedPreferences.Editor editor = mHighScorePref.edit();
                     editor.putInt("BEST SCORE", score);
                     editor.commit();
@@ -292,7 +304,7 @@ public class MainActivity extends Activity {
                             "<font color=#920783>S</font><font color=#e5004f>H</font>";
                     gameOverLabel.setText(Html.fromHtml(finishText));
                     bestScoreText.setText(String.valueOf(score));
-                }else {
+                } else {
                     String finishText = "GAME FINISH";
                     gameOverLabel.setText(finishText);
                     bestScoreText.setText(String.valueOf(highScore));
@@ -369,6 +381,27 @@ public class MainActivity extends Activity {
         question();
         timer();
     }
+
+    public void shareTwitter(View v) {
+        String url = "http://twitter.com/share?text=MyScore " + score + " %23TapDroid";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
+    }
+
+    private void useScaledImage() {
+        //Twitterのアイコンのサイズの設定
+        Resources res = getResources();
+        BitmapDrawable bd = (BitmapDrawable) res.getDrawable(R.drawable.ic_twitter);
+        Bitmap b = Bitmap.createScaledBitmap(bd.getBitmap(),
+                (int) (bd.getIntrinsicHeight() * 0.5),
+                (int) (bd.getIntrinsicWidth() * 0.5),
+                false);
+
+        Drawable drawable = new BitmapDrawable(getResources(), b);
+
+        shareTwitterButton.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();

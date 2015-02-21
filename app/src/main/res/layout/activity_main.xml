@@ -357,147 +357,21 @@
         android:id="@+id/translucentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"
-        android:visibility="visible">
+        android:background="#80000000">
 
-        <LinearLayout
+        <include
             android:id="@+id/startLayout"
+            layout="@layout/layout_game_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:layout_gravity="center" />
 
-            <TextView
-                android:id="@+id/label_gameStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="GAME START"
-                android:textColor="#ffffff"
-                android:textSize="80sp" />
-
-            <Button
-                android:id="@+id/button_start"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_gravity="center|bottom"
-                android:background="@drawable/bg_button"
-                android:onClick="start"
-                android:text="START"
-                android:textColor="@drawable/bg_button_color" />
-        </LinearLayout>
-
-        <LinearLayout
+        <include
             android:id="@+id/finishLayout"
+            layout="@layout/layout_game_over"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/label_gameOver"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center|bottom"
-                android:text="GAME FINISH"
-                android:textColor="#ffffff"
-                android:textSize="80sp" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:id="@+id/textView_FinalScore"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="SCORE"
-                        android:textColor="#ffffff"
-                        android:textSize="100sp" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/activity_horizontal_margin">
-
-                    <TextView
-                        android:id="@+id/label_bestScore"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="bottom|right"
-                        android:layout_weight="1"
-                        android:gravity="bottom|right"
-                        android:text="BEST"
-                        android:textColor="#ffffff"
-                        android:textSize="30sp" />
-
-                    <TextView
-                        android:id="@+id/textView_bestScore"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="right|top"
-                        android:layout_weight="1"
-                        android:gravity="right|top"
-                        android:text="0"
-                        android:textColor="#ffffff"
-                        android:textSize="40sp" />
-
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/button_restart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_button"
-                    android:gravity="center"
-                    android:onClick="restart"
-                    android:text="Try Again"
-                    android:textColor="@drawable/bg_button_color" />
-            </LinearLayout>
-        </LinearLayout>
+            android:visibility="invisible" />
 
     </FrameLayout>
 
