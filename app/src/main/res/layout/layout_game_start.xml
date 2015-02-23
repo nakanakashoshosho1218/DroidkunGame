@@ -10,17 +10,42 @@
         android:id="@+id/label_gameStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="GAME START"
         android:textColor="#ffffff"
         android:textSize="80sp" />
 
-    <Button
-        android:id="@+id/button_start"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_gravity="center|bottom"
-        android:background="@drawable/bg_button"
-        android:onClick="start"
-        android:text="START"
-        android:textColor="@drawable/bg_button_color" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_start"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center|bottom"
+            android:background="@drawable/bg_button"
+            android:onClick="start"
+            android:text="START"
+            android:textColor="@drawable/bg_button_color" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_button"
+            android:drawableLeft="@drawable/ic_twitter"
+            android:gravity="center_vertical|right"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="20dp"
+            android:paddingTop="15dp"
+            android:text="Share Twitter"
+            android:textColor="#55ACEE"
+            android:visibility="invisible" />
+    </LinearLayout>
 </LinearLayout>

@@ -36,6 +36,25 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 public class MainActivity extends Activity {
+
+    final String[] RAINBOW_VALUES = {
+            "dd000b",
+            "ee6d00",
+            "ffeb00",
+            "61a911",
+            "",
+            "006f28",
+            "007669",
+            "0079e0",
+            "003d99",
+            "101258",
+            "64034e"
+    };
+    final String[] RAINBOW_STRS = {
+            "G", "A", "M", "E", " ", "F", "I", "N", "I", "S", "H"
+    };
+
+
     TextView scoreText;
     TextView timeLabel;
     TextView timeText;
@@ -298,10 +317,7 @@ public class MainActivity extends Activity {
                     SharedPreferences.Editor editor = mHighScorePref.edit();
                     editor.putInt("BEST SCORE", score);
                     editor.commit();
-                    String finishText = "<font color=#e60012>G</font><font color=#f39800>A</font>" +
-                            "<font color=#8fc31f>M</font><font color=#e60012>E</font> <font color=#009944>F</font>" +
-                            "<font color=#009e96>I</font><font color=#00a0e9>N</font><font color=#0068b7>I</font>" +
-                            "<font color=#920783>S</font><font color=#e5004f>H</font>";
+                    String finishText = getGameOverHtml();
                     gameOverLabel.setText(Html.fromHtml(finishText));
                     bestScoreText.setText(String.valueOf(score));
                 } else {
@@ -382,6 +398,7 @@ public class MainActivity extends Activity {
         timer();
     }
 
+    //ShareTwitterボタンの処理
     public void shareTwitter(View v) {
         String url = "http://twitter.com/share?text=MyScore " + score + " %23TapDroid";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -391,15 +408,26 @@ public class MainActivity extends Activity {
     private void useScaledImage() {
         //Twitterのアイコンのサイズの設定
         Resources res = getResources();
-        BitmapDrawable bd = (BitmapDrawable) res.getDrawable(R.drawable.ic_twitter);
-        Bitmap b = Bitmap.createScaledBitmap(bd.getBitmap(),
-                (int) (bd.getIntrinsicHeight() * 0.5),
-                (int) (bd.getIntrinsicWidth() * 0.5),
+        BitmapDrawable twitterBitmapDrawable = (BitmapDrawable) res.getDrawable(R.drawable.ic_twitter);
+        Bitmap twitterBitmap = Bitmap.createScaledBitmap(twitterBitmapDrawable.getBitmap(),
+                (int) (twitterBitmapDrawable.getIntrinsicHeight() * 0.5),
+                (int) (twitterBitmapDrawable.getIntrinsicWidth() * 0.5),
                 false);
 
-        Drawable drawable = new BitmapDrawable(getResources(), b);
+        Drawable drawable = new BitmapDrawable(getResources(), twitterBitmap);
 
         shareTwitterButton.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+    }
+
+    public String getGameOverHtml() {
+        String html = "";
+
+        for (int i = 0; i < RAINBOW_STRS.length; i++) {
+            html +=
+                    "<font color=#" + RAINBOW_VALUES[i] + ">" + RAINBOW_STRS[i] + "</font>";
+        }
+
+        return html;
     }
 
     @Override
@@ -420,25 +448,4 @@ public class MainActivity extends Activity {
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
